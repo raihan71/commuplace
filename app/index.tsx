@@ -1,15 +1,12 @@
-import { Text, View } from "react-native";
+import React from 'react';
+import { Provider } from 'react-redux';
+import Home from './screens/Home';
+import store from './store/store';
 
-export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
-}
+const App = () => (
+  <Provider store={store}>
+    <Home />
+  </Provider>
+);
+
+export default App;
