@@ -1,11 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Home from './screens/Home';
 import store from './store/store';
+import Login from './screens/Login';
+import { StatusBar } from 'expo-status-bar';
 
 const App = () => (
   <Provider store={store}>
-    <Home />
+    <StatusBar style="auto" />
+    <Login />
   </Provider>
 );
 
