@@ -1,30 +1,30 @@
 import React, { useCallback } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { useSSO } from '@clerk/clerk-expo';
+import * as Linking from 'expo-linking';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import useWarmUpBrowser from '../hooks/useWarmupBrowser';
-import Home from './Home';
+import images from '../constants/images';
 
 WebBrowser.maybeCompleteAuthSession();
 
-const Login = () => {
+const Login = ({ strategy }: any) => {
   useWarmUpBrowser();
-
   const { startSSOFlow } = useSSO();
-
   const handleLogin = useCallback(async () => {
     try {
-      const { createdSessionId, signIn, setActive } = await startSSOFlow({
-        strategy: 'oauth_google',
+      const { createdSessionId, setActive } = await startSSOFlow({
+        strategy,
+        redirectUrl: Linking.createURL('/', {
+          scheme: 'martketplacecommunity',
+        }),
       });
-      if (createdSessionId) {
-        setActive && setActive({ session: createdSessionId });
-        return <Home />;
-      } else {
-        signIn;
+
+      if (createdSessionId && setActive) {
+        await setActive({ session: createdSessionId });
       }
-    } catch (error) {
-      console.error(JSON.stringify(error, null, 2));
+    } catch (err) {
+      console.error('OAuth error', err);
     }
   }, []);
 
@@ -32,7 +32,7 @@ const Login = () => {
     <View>
       <Image
         className="w-full h-[400px] object-cover"
-        source={require('../../assets/images/illustration/login-screen.png')}
+        source={images.illustrations.login}
       />
       <View>
         <Text className="text-2xl font-bold text-center">
