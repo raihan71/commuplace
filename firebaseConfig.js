@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB80mEp4YC6VrBAdV4OGcd0Dh8ctR0SXs4",
-  authDomain: "commuplace.firebaseapp.com",
-  projectId: "commuplace",
-  storageBucket: "commuplace.firebasestorage.app",
-  messagingSenderId: "816851589118",
-  appId: "1:816851589118:web:ad126ece5de55e1b9692af"
+  apiKey: "AIzaSyCGpkv1OGm-9jkAR1kibhz3iiy5dgZIis0",
+  authDomain: "commuplacee.firebaseapp.com",
+  projectId: "commuplacee",
+  storageBucket: "commuplacee.firebasestorage.app",
+  messagingSenderId: "74643029569",
+  appId: "1:74643029569:web:21c807fe0be6ba578850c0"
 };
 
 // Initialize Firebase
