@@ -4,7 +4,6 @@ import { useSSO } from '@clerk/clerk-expo';
 import * as Linking from 'expo-linking';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import useWarmUpBrowser from '../hooks/useWarmupBrowser';
-import images from '../constants/images';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -32,7 +31,7 @@ const Login = ({ strategy }: any) => {
     <View>
       <Image
         className="w-full h-[400px] object-cover"
-        source={images.illustrations.login}
+        source={require('../../assets/images/illustration/login-screen')}
       />
       <View>
         <Text className="text-2xl font-bold text-center">

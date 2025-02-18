@@ -43,55 +43,6 @@ export default function TabNavigation() {
         }}
       />
       <Tab.Screen
-        name="Explore"
-        component={Explore}
-        options={{
-          tabBarActiveTintColor: colors.primary,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Explore
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'globe' : 'globe-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Cart"
-        component={Cart}
-        options={{
-          tabBarActiveTintColor: colors.primary,
-          tabBarBadge: 3,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Cart
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'cart' : 'cart-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
         name="AddProduct"
         component={AddProduct}
         options={{
@@ -109,30 +60,6 @@ export default function TabNavigation() {
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name={focused ? 'camera' : 'camera-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarActiveTintColor: colors.primary,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Profile
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'person' : 'person-outline'}
               size={24}
               color={color}
             />
