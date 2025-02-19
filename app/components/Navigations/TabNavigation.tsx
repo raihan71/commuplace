@@ -2,8 +2,9 @@ import React from 'react';
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Home, Profile, Explore, Cart, AddProduct } from '@/app/screens';
 import colors from '@/app/constants/colors';
+import Home from '@/app/screens/Home';
+import AddProduct from '@/app/screens/Product/AddProduct';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,7 +13,6 @@ export default function TabNavigation() {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        animation: 'fade',
         headerShown: false,
         tabBarStyle: {
           height: 53,

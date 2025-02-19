@@ -31,7 +31,7 @@ const Login = ({ strategy }: any) => {
     <View>
       <Image
         className="w-full h-[400px] object-cover"
-        source={require('../../assets/images/illustration/login-screen')}
+        source={require('../../assets/images/illustration/login-screen.png')}
       />
       <View>
         <Text className="text-2xl font-bold text-center">

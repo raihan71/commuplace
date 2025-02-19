@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import * as ImagePicker from 'expo-image-picker';
 import {
-  ScrollView,
-  StyleSheet,
   View,
   Text,
-  SafeAreaView,
-  TouchableOpacity,
+  ScrollView,
   Image,
+  TouchableOpacity,
+  StyleSheet,
   TextInput,
+  SafeAreaView,
   KeyboardAvoidingView,
-  Alert,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import * as ImagePicker from 'expo-image-picker';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import images from '@/app/constants/images';
-import colors from '@/app/constants/colors';
+import { Picker } from '@react-native-picker/picker';
 import { getFirestore, getDocs, collection, addDoc } from 'firebase/firestore';
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import firebaseConfig from '@/firebaseConfig';
 import { useUser } from '@clerk/clerk-expo';
-import useStatusBar from '@/app/hooks/useStatusBar';
+import colors from '@/app/constants/colors';
 
 const styles = StyleSheet.create({
   input: {
@@ -40,46 +38,23 @@ const styles = StyleSheet.create({
 });
 
 const validationSchema = Yup.object().shape({
-  title: Yup.string().required('Title is required'),
+  title: Yup.string().required('Judul wajib diisi'),
   description: Yup.string().required('Description is required'),
-  price: Yup.string().required('Price is required'),
   category: Yup.string().required('Category is required'),
+  price: Yup.number().required('Price is required'),
 });
 
 const AddProduct = () => {
-  useStatusBar('dark-content', colors.white);
-  const [image, setImage] = useState<any>();
   const db = getFirestore(firebaseConfig);
-  const storage = getStorage();
-  const [loading, setLoading] = useState(false);
-  const { user } = useUser();
   const [categoryList, setCategoryList] = useState<any[]>([]);
+  const [image, setImage] = useState<any>();
+  const [loading, setLoading] = useState(false);
+  const storage = getStorage();
+  const { user } = useUser();
 
   useEffect(() => {
     getCategoryList();
   }, []);
-
-  const initialValues = {
-    title: '',
-    description: '',
-    price: '',
-    category: '',
-    image: '',
-    userName: '',
-    userEmail: '',
-    userImage: '',
-    cratedAt: Date.now(),
-  };
-
-  const getCategoryList = async () => {
-    setLoading(true);
-    setCategoryList([]);
-    const querySnapshot = await getDocs(collection(db, 'Category'));
-    querySnapshot.forEach((doc) => {
-      setCategoryList((categoryList) => [...categoryList, doc.data()]);
-      setLoading(false);
-    });
-  };
 
   const handleChangeImage = async () => {
     try {
@@ -96,31 +71,41 @@ const AddProduct = () => {
     }
   };
 
-  const handleSaveProduct = async (values: any, resetForm: any) => {
+  const getCategoryList = async () => {
+    setCategoryList([]);
+    const querySnapshot = await getDocs(collection(db, 'Category'));
+    querySnapshot.forEach((doc) => {
+      setCategoryList((categoryList) => [...categoryList, doc.data()]);
+    });
+  };
+
+  const handleSaveProduct = async (value: any, resetForm: any) => {
     try {
       setLoading(true);
       const resp = await fetch(image);
       const blob = await resp.blob();
-      const storageRef = ref(storage, 'commuplace/' + Date.now() + '.jpg');
-
-      uploadBytes(storageRef, blob).then(() => {
-        getDownloadURL(storageRef).then(async (downloadUrl) => {
-          values.image = downloadUrl;
-          values.userName = user?.fullName;
-          values.userEmail = user?.primaryEmailAddress?.emailAddress;
-          values.userImage = user?.imageUrl;
-          await addDoc(collection(db, 'UserPost'), values)
+      const storageRef = ref(storage, 'imageproduct/' + Date.now() + '.jpg');
+      uploadBytes(storageRef, blob).then(async (snapshot) => {
+        getDownloadURL(snapshot.ref).then(async (url) => {
+          await addDoc(collection(db, 'Product'), {
+            title: value.title,
+            description: value.description,
+            price: value.price,
+            category: value.category,
+            image: url,
+            userName: user?.fullName,
+            userImage: user?.imageUrl,
+          })
             .then((docRef) => {
               if (docRef.id) {
+                Alert.alert('Success', 'Product has been added successfully');
                 setLoading(false);
-                resetForm();
                 setImage(null);
-                Alert.alert('Success', 'Post Added Successfully.');
+                resetForm();
               }
             })
             .catch((error) => {
-              Alert.alert('Error', error);
-              console.error('Error adding document: ', error);
+              throw error;
             });
         });
       });
@@ -129,51 +114,56 @@ const AddProduct = () => {
     }
   };
 
+  const initialValues = {
+    title: '',
+    description: '',
+    price: '',
+    category: '',
+  };
+
   return (
     <SafeAreaView>
       <KeyboardAvoidingView>
         <ScrollView>
-          <View className="px-5 bg-white">
+          <View className="p-5 bg-white">
             <Text className="font-bold text-2xl">Add New Product</Text>
             <Text className="text-base text-gray-500 mb-5">
               Create New Product & Start Selling
             </Text>
             <Formik
               initialValues={initialValues}
-              validationSchema={validationSchema}
               onSubmit={(values, { resetForm }) =>
                 handleSaveProduct(values, resetForm)
-              }>
+              }
+              validationSchema={validationSchema}>
               {({
                 handleChange,
                 handleBlur,
-                setFieldValue,
                 handleSubmit,
+                values,
+                setFieldValue,
                 errors,
                 touched,
-                values,
               }: any) => (
                 <View>
-                  <TouchableOpacity
-                    className="pb-2"
-                    onPress={handleChangeImage}>
+                  <TouchableOpacity onPress={handleChangeImage}>
                     {image ?
                       <Image
-                        style={{ width: 100, height: 100, borderRadius: 15 }}
                         source={{ uri: image }}
+                        style={{ width: 100, height: 100 }}
                       />
                     : <Image
                         style={{ width: 100, height: 100, borderRadius: 15 }}
-                        source={images.image.placeholder}
+                        source={require('../../../assets/images/placeholder.jpg')}
                       />
                     }
                   </TouchableOpacity>
                   <TextInput
-                    style={styles.input}
-                    placeholder="Title"
                     onChangeText={handleChange('title')}
                     onBlur={handleBlur('title')}
-                    value={values.title}
+                    value={values?.title}
+                    style={styles.input}
+                    placeholder="Title"
                   />
                   {errors.title && touched.title ?
                     <Text className="text-red-500">{errors.title}</Text>
@@ -184,7 +174,7 @@ const AddProduct = () => {
                     placeholder="Description"
                     onChangeText={handleChange('description')}
                     onBlur={handleBlur('description')}
-                    value={values.description}
+                    value={values?.description}
                     numberOfLines={10}
                     multiline={true}
                   />
@@ -197,25 +187,26 @@ const AddProduct = () => {
                     keyboardType="number-pad"
                     onChangeText={handleChange('price')}
                     onBlur={handleBlur('price')}
-                    value={values.price}
+                    value={values?.price}
                   />
                   {errors.price && touched.price ?
                     <Text className="text-red-500">{errors.price}</Text>
                   : ''}
                   <View className="border border-gray-700 mt-3 rounded-lg">
                     <Picker
-                      selectedValue={values.category}
-                      onValueChange={(val) => setFieldValue('category', val)}
+                      selectedValue={values?.category}
+                      onValueChange={(val: string) =>
+                        setFieldValue('category', val)
+                      }
                       mode="dropdown">
-                      <Picker.Item label="Select a category" value="" />
-                      {categoryList.length > 0 &&
-                        categoryList?.map((item, index) => (
-                          <Picker.Item
-                            key={index}
-                            label={item?.name}
-                            value={item?.name}
-                          />
-                        ))}
+                      <Picker.Item label="Choose category" value="" />
+                      {categoryList?.map((category, index) => (
+                        <Picker.Item
+                          key={index}
+                          label={category.name}
+                          value={category.name}
+                        />
+                      ))}
                     </Picker>
                   </View>
                   {errors.category && touched.category ?
@@ -223,14 +214,11 @@ const AddProduct = () => {
                   : ''}
                   <TouchableOpacity
                     disabled={loading}
-                    onPress={loading ? undefined : handleSubmit}
-                    className="bg-indigo-500 p-3 rounded-md my-5">
+                    onPress={handleSubmit}
+                    className="bg-indigo-500 p-3 rounded-md mt-5">
                     {loading ?
                       <ActivityIndicator color={colors.white} />
-                    : <Text className="text-white text-center text-lg font-semibold">
-                        Save Product
-                      </Text>
-                    }
+                    : <Text className="text-white text-center">Simpan</Text>}
                   </TouchableOpacity>
                 </View>
               )}
