@@ -21,6 +21,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import firebaseConfig from '@/firebaseConfig';
 import { useUser } from '@clerk/clerk-expo';
 import colors from '@/app/constants/colors';
+import useStatusBar from '@/app/hooks/useStatusBar';
 
 const styles = StyleSheet.create({
   input: {
@@ -51,6 +52,7 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false);
   const storage = getStorage();
   const { user } = useUser();
+  useStatusBar('dark-content', colors.white, true);
 
   useEffect(() => {
     getCategoryList();
@@ -125,9 +127,9 @@ const AddProduct = () => {
     <SafeAreaView>
       <KeyboardAvoidingView>
         <ScrollView>
-          <View className="p-5 bg-white">
+          <View className="px-6 py-3 bg-white">
             <Text className="font-bold text-2xl">Add New Product</Text>
-            <Text className="text-base text-gray-500 mb-5">
+            <Text className="text-base text-gray-500 mb-3">
               Create New Product & Start Selling
             </Text>
             <Formik
@@ -146,7 +148,9 @@ const AddProduct = () => {
                 touched,
               }: any) => (
                 <View>
-                  <TouchableOpacity onPress={handleChangeImage}>
+                  <TouchableOpacity
+                    className="mb-1"
+                    onPress={handleChangeImage}>
                     {image ?
                       <Image
                         source={{ uri: image }}
