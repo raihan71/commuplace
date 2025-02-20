@@ -4,6 +4,7 @@ const illustrations = {
 
 const image = {
   placeholder: require('../../assets/images/placeholder.jpg'),
+  flashsale: require('../../assets/images/Flashsale-Blue-Mobile.png'),
 };
 
 export default {

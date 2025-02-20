@@ -1,24 +1,72 @@
-import React from 'react';
-import { useClerk } from '@clerk/clerk-expo';
-import * as Linking from 'expo-linking';
-import { Button, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { SafeAreaView, ScrollView, View } from 'react-native';
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  orderBy,
+  query,
+} from 'firebase/firestore';
+import Header from '@/app/components/Header';
+import firebaseConfig from '@/firebaseConfig';
+import Banner from '@/app/components/Slider';
+import useStatusBar from '@/app/hooks/useStatusBar';
+import colors from '@/app/constants/colors';
+import Category from '@/app/components/Category';
+import ListItems from '../components/ListItem';
+import Collection from '../components/Collection';
 
 const Home = () => {
-  const { signOut } = useClerk();
+  const ref = useRef(null);
+  useStatusBar('dark-content', colors.white);
 
-  const handleLogout = async () => {
-    try {
-      await signOut();
-      Linking.openURL(Linking.createURL('/'));
-    } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
-    }
+  const db = getFirestore(firebaseConfig);
+  const [sliderList, setSliderList] = useState<any[]>([]);
+  const [categoryList, setCategoryList] = useState<any[]>([]);
+  const [latestItemList, setLatestItemList] = useState<any[]>([]);
+
+  const getSliders = async () => {
+    setSliderList([]);
+    const querySnapshot = await getDocs(collection(db, 'Slider'));
+    querySnapshot.forEach((doc) => {
+      setSliderList((sliderList) => [...sliderList, doc.data()]);
+    });
   };
+
+  const getCategoryList = async () => {
+    setCategoryList([]);
+    const querySnapshot = await getDocs(collection(db, 'Category'));
+    querySnapshot.forEach((doc) => {
+      setCategoryList((categoryList) => [...categoryList, doc.data()]);
+    });
+  };
+
+  const getLatestItemList = async () => {
+    setLatestItemList([]);
+    const querySnapShot = await getDocs(
+      query(collection(db, 'Product'), orderBy('title', 'asc')),
+    );
+    querySnapShot.forEach((doc) => {
+      setLatestItemList((latestItemList) => [...latestItemList, doc.data()]);
+    });
+  };
+
+  useEffect(() => {
+    getSliders();
+    getCategoryList();
+    getLatestItemList();
+  }, []);
+
   return (
-    <View>
-      <Text className="text-red-400 text-center">Welcome to martketplace</Text>
-      <Button title="Log Out" onPress={handleLogout} />
-    </View>
+    <ScrollView className="bg-white flex-1">
+      <SafeAreaView className="mb-2">
+        <Header />
+        <Banner data={sliderList} />
+        <Category data={categoryList} title="Kategori" />
+        <Collection data={latestItemList} />
+        <ListItems data={latestItemList} heading="Paling Baru" />
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 

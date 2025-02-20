@@ -1,7 +1,7 @@
 const colors = {
   primary: '#6366F1',
   black: '#030303',
-  stone: '#f5f5f4',
+  stone: '#fafafaf9',
   white: '#ffffff',
 };
 

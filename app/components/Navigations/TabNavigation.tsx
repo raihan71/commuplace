@@ -30,7 +30,7 @@ export default function TabNavigation() {
                 fontSize: 12,
                 marginLeft: 2,
               }}>
-              Home
+              Beranda
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
@@ -54,7 +54,7 @@ export default function TabNavigation() {
                 fontSize: 12,
                 marginLeft: 2,
               }}>
-              Explore
+              Jelajahi
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
@@ -77,13 +77,14 @@ export default function TabNavigation() {
               style={{
                 color: color,
                 fontSize: 12,
-                marginLeft: 2,
+                marginLeft: 5,
               }}>
-              Cart
+              Keranjang
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
+              style={{ marginLeft: 2 }}
               name={focused ? 'cart' : 'cart-outline'}
               size={24}
               color={color}
@@ -101,13 +102,14 @@ export default function TabNavigation() {
               style={{
                 color: color,
                 fontSize: 12,
-                marginLeft: 2,
+                marginLeft: 8,
               }}>
-              Product
+              Upload
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
+              style={{ marginLeft: 5 }}
               name={focused ? 'camera' : 'camera-outline'}
               size={24}
               color={color}
@@ -127,7 +129,7 @@ export default function TabNavigation() {
                 fontSize: 12,
                 marginLeft: 2,
               }}>
-              Profile
+              Akun
             </Text>
           ),
           tabBarIcon: ({ color, focused }) => (

@@ -23,8 +23,8 @@ const Profile = () => {
   };
 
   return (
-    <View className="flex-1 bottom-28 justify-center items-center bg-stone-100 p-5">
-      <View className="w-full flex flex-row items-center bg-gray-50 border-2 border-gray-200 rounded-xl p-4 mb-4">
+    <View className="flex-1 bottom-28 justify-center items-center bg-stone-50 p-5">
+      <View className="w-full flex flex-row items-center bg-white border-2 border-gray-200 rounded-xl p-4 mb-4">
         <Image
           alt="profile"
           className="w-[68px] h-[68px] rounded-full"
@@ -37,21 +37,21 @@ const Profile = () => {
           </Text>
         </View>
       </View>
-      <TouchableOpacity className="w-full flex flex-row bg-gray-50 mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
+      <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
         <Text className="text-center text-gray-600">My Product</Text>
         <Ionicons name="briefcase-outline" size={24} color="gray" />
       </TouchableOpacity>
-      <TouchableOpacity className="w-full flex flex-row bg-gray-50 mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
+      <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
         <Text className="text-center text-gray-600">Explore Now</Text>
         <Ionicons name="globe-outline" size={24} color="gray" />
       </TouchableOpacity>
-      <TouchableOpacity className="w-full flex flex-row bg-gray-50 mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
+      <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
         <Text className="text-center text-gray-600">About Us</Text>
         <Ionicons name="information-circle-outline" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={handleLogout}
-        className="absolute bottom-10 w-full flex flex-row bg-gray-50 mb-4 items-center rounded-lg justify-between border-2 border-red-300 py-2 px-3">
+        className="absolute bottom-10 w-full flex flex-row bg-white mb-4 items-center rounded-lg justify-between border-2 border-red-300 py-2 px-3">
         <Text className="text-center text-red-600">Sign Out</Text>
         <Ionicons name="log-out-outline" size={24} color="red" />
       </TouchableOpacity>
