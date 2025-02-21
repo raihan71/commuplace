@@ -97,6 +97,7 @@ const AddProduct = () => {
             image: url,
             userName: user?.fullName,
             userImage: user?.imageUrl,
+            createdAt: new Date(),
           })
             .then((docRef) => {
               if (docRef.id) {
@@ -222,7 +223,10 @@ const AddProduct = () => {
                     className="bg-indigo-500 p-3 rounded-md mt-5">
                     {loading ?
                       <ActivityIndicator color={colors.white} />
-                    : <Text className="text-white text-center">Simpan</Text>}
+                    : <Text className="text-white text-center font-semibold">
+                        Simpan
+                      </Text>
+                    }
                   </TouchableOpacity>
                 </View>
               )}
