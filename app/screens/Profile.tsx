@@ -38,21 +38,21 @@ const Profile = () => {
         </View>
       </View>
       <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
-        <Text className="text-center text-gray-600">My Product</Text>
+        <Text className="text-center text-gray-600">Produk Saya</Text>
         <Ionicons name="briefcase-outline" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
-        <Text className="text-center text-gray-600">Explore Now</Text>
+        <Text className="text-center text-gray-600">Jelajahi Commuplace</Text>
         <Ionicons name="globe-outline" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
-        <Text className="text-center text-gray-600">About Us</Text>
+        <Text className="text-center text-gray-600">Tentang Kami</Text>
         <Ionicons name="information-circle-outline" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={handleLogout}
         className="absolute bottom-10 w-full flex flex-row bg-white mb-4 items-center rounded-lg justify-between border-2 border-red-300 py-2 px-3">
-        <Text className="text-center text-red-600">Sign Out</Text>
+        <Text className="text-center text-red-600">Keluar</Text>
         <Ionicons name="log-out-outline" size={24} color="red" />
       </TouchableOpacity>
     </View>

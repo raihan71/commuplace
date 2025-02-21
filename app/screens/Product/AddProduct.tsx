@@ -224,11 +224,11 @@ const AddProduct = () => {
                   <TouchableOpacity
                     disabled={loading}
                     onPress={loading ? undefined : handleSubmit}
-                    className="bg-indigo-500 p-3 rounded-md my-5">
+                    className="bg-indigo-500 p-3 rounded-md my-3.5">
                     {loading ?
                       <ActivityIndicator color={colors.white} />
-                    : <Text className="text-white text-center text-lg font-semibold">
-                        Save Product
+                    : <Text className="text-white text-center font-semibold">
+                        Simpan
                       </Text>
                     }
                   </TouchableOpacity>

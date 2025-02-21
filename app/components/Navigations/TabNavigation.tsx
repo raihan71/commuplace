@@ -2,25 +2,34 @@ import React from 'react';
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Home, Profile, Explore, Cart, AddProduct } from '@/app/screens';
+import { Profile, Cart, AddProduct } from '@/app/screens';
 import colors from '@/app/constants/colors';
+import HomeScreenStackNav from './StackNavigation/HomeStack';
+import { useSegments } from 'expo-router';
+import ExploreStackNav from './StackNavigation/ExploreStack';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
+  const segments: string[] = useSegments();
+  const screensWithHiddenTabs = ['ProductDetail', 'CategoryProduct'];
+  const hide = screensWithHiddenTabs.some((screen) =>
+    segments.includes(screen),
+  );
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        animation: 'fade',
         headerShown: false,
         tabBarStyle: {
           height: 53,
+          display: hide ? 'none' : 'flex',
         },
       }}>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="HomeNav"
+        component={HomeScreenStackNav}
         options={{
           tabBarActiveTintColor: colors.primary,
           tabBarLabel: ({ color }) => (
@@ -43,8 +52,8 @@ export default function TabNavigation() {
         }}
       />
       <Tab.Screen
-        name="Explore"
-        component={Explore}
+        name="ExploreNav"
+        component={ExploreStackNav}
         options={{
           tabBarActiveTintColor: colors.primary,
           tabBarLabel: ({ color }) => (

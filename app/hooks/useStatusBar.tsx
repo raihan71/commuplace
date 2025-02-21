@@ -7,7 +7,7 @@ const useStatusBar = (style: any, color: any) => {
     useCallback(() => {
       StatusBar.setBarStyle(style, true);
       StatusBar.setBackgroundColor(color);
-    }, []),
+    }, [style, color]),
   );
 };
 

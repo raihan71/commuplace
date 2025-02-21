@@ -23,11 +23,7 @@ export default function Header() {
         className="px-5 flex flex-row 
         items-center bg-indigo-50 mt-4 rounded-full border-[1px] border-indigo-200">
         <Ionicons name="search" size={24} color={colors.primary} />
-        <TextInput
-          placeholder="Cari Produk"
-          className="ml-2 text-[18px]"
-          onChangeText={(value) => console.log(value)}
-        />
+        <TextInput placeholder="Cari Produk" className="ml-2 text-[18px]" />
       </View>
     </View>
   );

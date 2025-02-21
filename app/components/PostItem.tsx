@@ -6,16 +6,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 const PostItem = ({ item }: any) => {
   const navigation = useNavigation<any>();
-
   return (
     <TouchableOpacity
       className="flex-1 m-2 p-2 rounded-lg 
     border-[1px] bg-white border-slate-200"
-      onPress={() =>
-        navigation.push('product-detail', {
-          product: item,
-        })
-      }>
+      onPress={() => navigation.navigate('ProductDetail', { item })}>
       <View className="m-[-9px]">
         <Image
           source={{ uri: item.image }}
@@ -23,13 +18,16 @@ const PostItem = ({ item }: any) => {
         />
       </View>
       <View>
-        <Text className="text-base mt-2.5 text-ellipsis break-words">
+        <Text
+          ellipsizeMode="tail"
+          numberOfLines={2}
+          className="text-base mt-2.5 text-ellipsis break-words">
           {item.title}
         </Text>
         <Text className="text-lg font-bold">
           Rp {currencyFormat(item.price)}
         </Text>
-        <Text className="text-blue-500 bg-blue-100 mt-1 p-1 text-center rounded-full px-1 text-[10px] w-[70px]">
+        <Text className="text-indigo-500 bg-indigo-100 mt-1 p-1 text-center rounded-full px-1 text-[10px] w-[70px]">
           {item.category}
         </Text>
         <View className="flex flex-row items-center mt-2">
