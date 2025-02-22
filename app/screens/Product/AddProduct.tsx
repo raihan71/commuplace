@@ -26,11 +26,6 @@ import useStatusBar from '@/app/hooks/useStatusBar';
 
 const styles = StyleSheet.create({
   input: {
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-    paddingTop: 15,
-
     marginTop: 10,
     marginBottom: 5,
     paddingHorizontal: 17,
@@ -130,115 +125,113 @@ const AddProduct = () => {
   };
 
   return (
-    <SafeAreaView>
-      <KeyboardAvoidingView>
-        <ScrollView>
-          <View className="px-5 bg-white">
-            <Text className="font-bold text-2xl">Add New Product</Text>
-            <Text className="text-base text-gray-500 mb-5">
-              Create New Product & Start Selling
-            </Text>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={(values, { resetForm }) =>
-                handleSaveProduct(values, resetForm)
-              }>
-              {({
-                handleChange,
-                handleBlur,
-                setFieldValue,
-                handleSubmit,
-                errors,
-                touched,
-                values,
-              }: any) => (
-                <View>
-                  <TouchableOpacity
-                    className="pb-2"
-                    onPress={handleChangeImage}>
-                    {image ?
-                      <Image
-                        style={{ width: 100, height: 100, borderRadius: 15 }}
-                        source={{ uri: image }}
-                      />
-                    : <Image
-                        style={{ width: 100, height: 100, borderRadius: 15 }}
-                        source={images.image.placeholder}
-                      />
-                    }
-                  </TouchableOpacity>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Title"
-                    onChangeText={handleChange('title')}
-                    onBlur={handleBlur('title')}
-                    value={values.title}
-                  />
-                  {errors.title && touched.title ?
-                    <Text className="text-red-500">{errors.title}</Text>
-                  : ''}
-                  <TextInput
-                    className="h-24"
-                    style={styles.input}
-                    placeholder="Description"
-                    onChangeText={handleChange('description')}
-                    onBlur={handleBlur('description')}
-                    value={values.description}
-                    numberOfLines={10}
-                    multiline={true}
-                  />
-                  {errors.description && touched.description ?
-                    <Text className="text-red-500">{errors.description}</Text>
-                  : ''}
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Price"
-                    keyboardType="number-pad"
-                    onChangeText={handleChange('price')}
-                    onBlur={handleBlur('price')}
-                    value={values.price}
-                  />
-                  {errors.price && touched.price ?
-                    <Text className="text-red-500">{errors.price}</Text>
-                  : ''}
-                  <View className="border border-gray-700 mt-3 rounded-lg">
-                    <Picker
-                      selectedValue={values.category}
-                      onValueChange={(val) => setFieldValue('category', val)}
-                      mode="dropdown">
-                      <Picker.Item label="Select a category" value="" />
-                      {categoryList.length > 0 &&
-                        categoryList?.map((item, index) => (
-                          <Picker.Item
-                            key={index}
-                            label={item?.name}
-                            value={item?.name}
-                          />
-                        ))}
-                    </Picker>
-                  </View>
-                  {errors.category && touched.category ?
-                    <Text className="text-red-500">{errors.category}</Text>
-                  : ''}
-                  <TouchableOpacity
-                    disabled={loading}
-                    onPress={loading ? undefined : handleSubmit}
-                    className="bg-indigo-500 p-3 rounded-md my-3.5">
-                    {loading ?
-                      <ActivityIndicator color={colors.white} />
-                    : <Text className="text-white text-center font-semibold">
-                        Simpan
-                      </Text>
-                    }
-                  </TouchableOpacity>
+    <KeyboardAvoidingView>
+      <ScrollView>
+        <View className="px-5 bg-white">
+          <Text className="font-bold text-2xl">Add New Product</Text>
+          <Text className="text-base text-gray-500 mb-5">
+            Create New Product & Start Selling
+          </Text>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={(values, { resetForm }) =>
+              handleSaveProduct(values, resetForm)
+            }>
+            {({
+              handleChange,
+              handleBlur,
+              setFieldValue,
+              handleSubmit,
+              errors,
+              touched,
+              values,
+            }: any) => (
+              <View>
+                <TouchableOpacity className="pb-2" onPress={handleChangeImage}>
+                  {image ?
+                    <Image
+                      style={{ width: 100, height: 100, borderRadius: 15 }}
+                      source={{ uri: image }}
+                    />
+                  : <Image
+                      style={{ width: 100, height: 100, borderRadius: 15 }}
+                      source={images.image.placeholder}
+                    />
+                  }
+                </TouchableOpacity>
+                <TextInput
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Title"
+                  onChangeText={handleChange('title')}
+                  onBlur={handleBlur('title')}
+                  value={values.title}
+                  style={styles.input}
+                />
+                {errors.title && touched.title ?
+                  <Text className="text-red-500">{errors.title}</Text>
+                : ''}
+                <TextInput
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Description"
+                  onChangeText={handleChange('description')}
+                  onBlur={handleBlur('description')}
+                  value={values.description}
+                  numberOfLines={10}
+                  multiline={true}
+                  style={styles.input}
+                />
+                {errors.description && touched.description ?
+                  <Text className="text-red-500">{errors.description}</Text>
+                : ''}
+                <TextInput
+                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Price"
+                  keyboardType="number-pad"
+                  onChangeText={handleChange('price')}
+                  onBlur={handleBlur('price')}
+                  value={values.price}
+                  style={styles.input}
+                />
+                {errors.price && touched.price ?
+                  <Text className="text-red-500">{errors.price}</Text>
+                : ''}
+                <View className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 mt-3">
+                  <Picker
+                    selectedValue={values.category}
+                    onValueChange={(val) => setFieldValue('category', val)}
+                    mode="dropdown">
+                    <Picker.Item label="Select a category" value="" />
+                    {categoryList.length > 0 &&
+                      categoryList?.map((item, index) => (
+                        <Picker.Item
+                          key={index}
+                          label={item?.name}
+                          value={item?.name}
+                        />
+                      ))}
+                  </Picker>
                 </View>
-              )}
-            </Formik>
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+                {errors.category && touched.category ?
+                  <Text className="text-red-500">{errors.category}</Text>
+                : ''}
+                <TouchableOpacity
+                  disabled={loading}
+                  onPress={loading ? undefined : handleSubmit}
+                  className="bg-indigo-500 p-3 rounded-md my-5">
+                  {loading ?
+                    <ActivityIndicator color={colors.white} />
+                  : <Text className="text-white text-center font-semibold">
+                      Simpan
+                    </Text>
+                  }
+                </TouchableOpacity>
+              </View>
+            )}
+          </Formik>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

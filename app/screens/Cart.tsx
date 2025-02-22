@@ -6,6 +6,8 @@ import colors from '../constants/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import currencyFormat from '../utils/currencyFormat';
 import NotFound from '../components/NotFound';
+import { updateCartItems } from '../reducers/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const AddCart = () => {
   useStatusBar('dark-content', colors.white);
@@ -25,6 +27,7 @@ const AddCart = () => {
       image: '/api/placeholder/100/100',
     },
   ]);
+  const dispatch = useDispatch();
 
   const updateQuantity = async (index: number, change: number) => {
     const newItems = cartItems.map((item, i) =>
@@ -35,6 +38,7 @@ const AddCart = () => {
     setCartItems(newItems);
     try {
       await AsyncStorage.setItem('my-cart', JSON.stringify(newItems));
+      dispatch(updateCartItems(newItems));
     } catch (e) {
       alert(`Error updating storage: ${e}`);
     }
@@ -45,6 +49,7 @@ const AddCart = () => {
     setCartItems(newItems);
     try {
       await AsyncStorage.setItem('my-cart', JSON.stringify(newItems));
+      dispatch(updateCartItems(newItems));
     } catch (e) {
       alert(`Error removing item from storage: ${e}`);
     }

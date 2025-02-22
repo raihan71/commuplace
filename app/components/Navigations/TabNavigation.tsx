@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Text } from 'react-native';
+import { useSelector } from 'react-redux';
+import { useSegments } from 'expo-router';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Profile, Cart, AddProduct } from '@/app/screens';
 import colors from '@/app/constants/colors';
 import HomeScreenStackNav from './StackNavigation/HomeStack';
-import { useSegments } from 'expo-router';
 import ExploreStackNav from './StackNavigation/ExploreStack';
+import ProfileStackNav from './StackNavigation/ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   const segments: string[] = useSegments();
   const screensWithHiddenTabs = ['ProductDetail', 'CategoryProduct'];
+  const badgeCount = useSelector((state: any) => state.cart.badgeCount);
+
   const hide = screensWithHiddenTabs.some((screen) =>
     segments.includes(screen),
   );
@@ -79,6 +83,7 @@ const TabNavigation = () => {
         name="Cart"
         component={Cart}
         options={{
+          tabBarBadge: badgeCount > 0 ? badgeCount : null,
           tabBarActiveTintColor: colors.primary,
           tabBarLabel: ({ color }) => (
             <Text
@@ -126,8 +131,8 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileNav"
+        component={ProfileStackNav}
         options={{
           tabBarActiveTintColor: colors.primary,
           tabBarLabel: ({ color }) => (

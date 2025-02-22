@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import currencyFormat from '../utils/currencyFormat';
 
 const PostItemMini = ({ item, isFlashSale = true }: any) => {
+  const navigation = useNavigation<any>();
   return (
-    <>
+    <TouchableOpacity
+      onPress={() => navigation.navigate('ProductDetail', { item })}>
       <View>
         <Image
           source={{ uri: item?.image }}
@@ -41,7 +44,7 @@ const PostItemMini = ({ item, isFlashSale = true }: any) => {
           </>
         : ''}
       </View>
-    </>
+    </TouchableOpacity>
   );
 };
 

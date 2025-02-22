@@ -13,6 +13,7 @@ import ListItems from '@/app/components/ListItem';
 import firebaseConfig from '@/firebaseConfig';
 import NotFound from '@/app/components/NotFound';
 import Loading from '@/app/components/Loading';
+import { ScrollView } from 'react-native';
 
 const CategoryListProduct = () => {
   useStatusBar('light-content', colors.primary);
@@ -44,10 +45,12 @@ const CategoryListProduct = () => {
       {loading ?
         <Loading />
       : products.length > 0 ?
-        <ListItems
-          data={products}
-          heading={`Belanja ${params?.category} Yuk 🥳`}
-        />
+        <ScrollView>
+          <ListItems
+            data={products}
+            heading={`Belanja ${params?.category} Yuk 🥳`}
+          />
+        </ScrollView>
       : <NotFound />}
     </>
   );

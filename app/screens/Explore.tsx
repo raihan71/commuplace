@@ -30,7 +30,7 @@ const Explore = () => {
 
   return (
     <ScrollView className="bg-white flex-1">
-      <ListItems data={latestItemList} heading="Jelajahi Produk" />
+      <ListItems data={latestItemList} heading="Jelajahi Produk 🌐" />
     </ScrollView>
   );
 };

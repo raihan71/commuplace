@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StatusBar } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import * as Linking from 'expo-linking';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useUser, useClerk } from '@clerk/clerk-expo';
 import images from '@/app/constants/images';
 import colors from '@/app/constants/colors';
 import useStatusBar from '@/app/hooks/useStatusBar';
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
-  useStatusBar('dark-content', colors.stone);
+  useStatusBar('dark-content', colors.white);
+  const navigation = useNavigation<any>();
   const { user } = useUser();
 
   const { signOut } = useClerk();
@@ -22,9 +24,13 @@ const Profile = () => {
     }
   };
 
+  const handleTapMenu = (route: string) => {
+    navigation.navigate(route);
+  };
+
   return (
-    <View className="flex-1 bottom-28 justify-center items-center bg-stone-50 p-5">
-      <View className="w-full flex flex-row items-center bg-white border-2 border-gray-200 rounded-xl p-4 mb-4">
+    <View className="flex-1 bottom-28 justify-center items-center bg-white p-5">
+      <View className="w-full flex flex-row items-center border-[1px] border-slate-200 rounded-xl p-4 mb-4">
         <Image
           alt="profile"
           className="w-[68px] h-[68px] rounded-full"
@@ -37,21 +43,25 @@ const Profile = () => {
           </Text>
         </View>
       </View>
-      <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
+      <TouchableOpacity
+        onPress={() => handleTapMenu('MyProduct')}
+        className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border-[1px] border-slate-200 py-2 px-3">
         <Text className="text-center text-gray-600">Produk Saya</Text>
         <Ionicons name="briefcase-outline" size={24} color="gray" />
       </TouchableOpacity>
-      <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
+      <TouchableOpacity
+        onPress={() => handleTapMenu('ExploreNav')}
+        className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border-[1px] border-slate-200 py-2 px-3">
         <Text className="text-center text-gray-600">Jelajahi Commuplace</Text>
         <Ionicons name="globe-outline" size={24} color="gray" />
       </TouchableOpacity>
-      <TouchableOpacity className="w-full flex flex-row bg-white mb-2 items-center rounded-lg justify-between border-2 border-gray-200 py-2 px-3">
+      <TouchableOpacity className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border-[1px] border-slate-200 py-2 px-3">
         <Text className="text-center text-gray-600">Tentang Kami</Text>
         <Ionicons name="information-circle-outline" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={handleLogout}
-        className="absolute bottom-10 w-full flex flex-row bg-white mb-4 items-center rounded-lg justify-between border-2 border-red-300 py-2 px-3">
+        className="absolute bottom-10 w-full flex flex-row mb-4 items-center rounded-lg justify-between border-[1px] border-red-300 py-2 px-3">
         <Text className="text-center text-red-600">Keluar</Text>
         <Ionicons name="log-out-outline" size={24} color="red" />
       </TouchableOpacity>

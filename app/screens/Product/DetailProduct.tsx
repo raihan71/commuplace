@@ -23,6 +23,8 @@ import colors from '@/app/constants/colors';
 import Collection from '@/app/components/Collection';
 import firebaseConfig from '@/firebaseConfig';
 import currencyFormat from '@/app/utils/currencyFormat';
+import { updateCartItems } from '@/app/reducers/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const DetailProduct = () => {
   const { params } = useRoute<any>();
@@ -31,6 +33,7 @@ const DetailProduct = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const { user } = useUser();
   const db = getFirestore(firebaseConfig);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     params && setProduct(params?.item);
@@ -79,10 +82,15 @@ const DetailProduct = () => {
       if (!productExists) {
         const productWithQuantity = {
           ...product,
+          createdAt:
+            product.createdAt ?
+              new Date(product.createdAt.seconds * 1000).toISOString()
+            : null,
           quantity: 1,
         };
         cartItems.push(productWithQuantity);
         await AsyncStorage.setItem('my-cart', JSON.stringify(cartItems));
+        dispatch(updateCartItems(cartItems));
         alert('Produk berhasil ditambahkan ke keranjang');
       } else {
         alert('Produk sudah dikeranjang');
