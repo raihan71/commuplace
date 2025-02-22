@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native';
 import currencyFormat from '../utils/currencyFormat';
 import { updateCartItems } from '../reducers/cartSlice';
 import { useDispatch } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
 
 const Payment = () => {
   const navigation = useNavigation<any>();
@@ -94,16 +95,30 @@ const Payment = () => {
             Jl. Mahaka Gg.Pulo 2, Bandung
           </Text>
         </View>
-        <View className="flex flex-col mb-6 bg-white p-4 rounded-lg">
+        <View className="flex flex-col mb-6 bg-white px-5 py-3 rounded-lg">
           <Text className="font-semibold text-gray-800 mb-4">Metode Bayar</Text>
-          <View className="flex-row items-center space-x-4 mb-4">
-            <TouchableOpacity className="flex-row items-center space-x-4">
-              <View className="w-10 h-10 bg-gray-200 rounded-lg" />
-              <Text className="font-semibold text-gray-800">Transfer Bank</Text>
+          <View className="flex-row items-center space-x-8 mb-4">
+            <TouchableOpacity className="flex-row items-center space-x-2 px-1.5 py-2 border border-slate-200 rounded-lg">
+              <Ionicons
+                name="business-sharp"
+                size={20}
+                className="rounded-lg"
+                color={'#0077B6'}
+              />
+              <Text className="font-semibold text-gray-800 text-[14px]">
+                Transfer Bank
+              </Text>
             </TouchableOpacity>
-            <TouchableOpacity className="flex-row items-center space-x-4">
-              <View className="w-10 h-10 bg-gray-200 rounded-lg" />
-              <Text className="font-semibold text-gray-800">OVO</Text>
+            <TouchableOpacity className="flex-row items-center space-x-4 border border-slate-200 px-1.5 py-2 rounded-lg">
+              <Ionicons
+                size={20}
+                name="logo-alipay"
+                className="rounded-lg"
+                color={'#108EE9'}
+              />
+              <Text className="font-semibold text-gray-800 text-[14px]">
+                OVO
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
