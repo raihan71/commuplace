@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -10,7 +10,7 @@ import ExploreStackNav from './StackNavigation/ExploreStack';
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+const TabNavigation = () => {
   const segments: string[] = useSegments();
   const screensWithHiddenTabs = ['ProductDetail', 'CategoryProduct'];
   const hide = screensWithHiddenTabs.some((screen) =>
@@ -19,7 +19,7 @@ export default function TabNavigation() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeNav"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -80,7 +80,6 @@ export default function TabNavigation() {
         component={Cart}
         options={{
           tabBarActiveTintColor: colors.primary,
-          tabBarBadge: 3,
           tabBarLabel: ({ color }) => (
             <Text
               style={{
@@ -152,4 +151,6 @@ export default function TabNavigation() {
       />
     </Tab.Navigator>
   );
-}
+};
+
+export default TabNavigation;
