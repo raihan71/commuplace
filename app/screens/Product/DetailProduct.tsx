@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useUser } from '@clerk/clerk-expo';
 import {
   View,
@@ -34,6 +34,7 @@ const DetailProduct = () => {
   const { user } = useUser();
   const db = getFirestore(firebaseConfig);
   const dispatch = useDispatch();
+  const navigation = useNavigation<any>();
 
   useEffect(() => {
     params && setProduct(params?.item);
@@ -92,6 +93,7 @@ const DetailProduct = () => {
         await AsyncStorage.setItem('my-cart', JSON.stringify(cartItems));
         dispatch(updateCartItems(cartItems));
         alert('Produk berhasil ditambahkan ke keranjang');
+        navigation.navigate('PaymentNav');
       } else {
         alert('Produk sudah dikeranjang');
       }

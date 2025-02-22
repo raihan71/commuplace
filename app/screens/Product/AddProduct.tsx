@@ -4,7 +4,6 @@ import {
   StyleSheet,
   View,
   Text,
-  SafeAreaView,
   TouchableOpacity,
   Image,
   TextInput,
@@ -24,21 +23,25 @@ import firebaseConfig from '@/firebaseConfig';
 import { useUser } from '@clerk/clerk-expo';
 import useStatusBar from '@/app/hooks/useStatusBar';
 
-const styles = StyleSheet.create({
-  input: {
-    marginTop: 10,
-    marginBottom: 5,
-    paddingHorizontal: 17,
-    textAlignVertical: 'top',
-    fontSize: 17,
-  },
-});
-
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
   description: Yup.string().required('Description is required'),
   price: Yup.string().required('Price is required'),
   category: Yup.string().required('Category is required'),
+});
+
+const styles = StyleSheet.create({
+  input: {
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    paddingTop: 15,
+
+    marginTop: 10,
+    marginBottom: 5,
+    paddingHorizontal: 17,
+    textAlignVertical: 'top',
+  },
 });
 
 const AddProduct = () => {
@@ -128,9 +131,9 @@ const AddProduct = () => {
     <KeyboardAvoidingView>
       <ScrollView>
         <View className="px-5 bg-white">
-          <Text className="font-bold text-2xl">Add New Product</Text>
-          <Text className="text-base text-gray-500 mb-5">
-            Create New Product & Start Selling
+          <Text className="font-semibold text-lg">Tambah Produk Baru</Text>
+          <Text className="text-base text-gray-500 mb-2.5">
+            Buat produk baru untuk dijual
           </Text>
           <Formik
             initialValues={initialValues}
@@ -162,7 +165,7 @@ const AddProduct = () => {
                 </TouchableOpacity>
                 <TextInput
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Title"
+                  placeholder="Nama Produk"
                   onChangeText={handleChange('title')}
                   onBlur={handleBlur('title')}
                   value={values.title}
@@ -172,8 +175,8 @@ const AddProduct = () => {
                   <Text className="text-red-500">{errors.title}</Text>
                 : ''}
                 <TextInput
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Description"
+                  className="h-20 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Deskripsi"
                   onChangeText={handleChange('description')}
                   onBlur={handleBlur('description')}
                   value={values.description}
@@ -186,7 +189,7 @@ const AddProduct = () => {
                 : ''}
                 <TextInput
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Price"
+                  placeholder="Harga"
                   keyboardType="number-pad"
                   onChangeText={handleChange('price')}
                   onBlur={handleBlur('price')}
@@ -201,7 +204,7 @@ const AddProduct = () => {
                     selectedValue={values.category}
                     onValueChange={(val) => setFieldValue('category', val)}
                     mode="dropdown">
-                    <Picker.Item label="Select a category" value="" />
+                    <Picker.Item label="Pilih kategori" value="" />
                     {categoryList.length > 0 &&
                       categoryList?.map((item, index) => (
                         <Picker.Item

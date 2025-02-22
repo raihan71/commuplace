@@ -8,8 +8,7 @@ const PostItem = ({ item }: any) => {
   const navigation = useNavigation<any>();
   return (
     <TouchableOpacity
-      className="flex-1 m-2 p-2 rounded-lg 
-    border-[1px] bg-white border-slate-200"
+      className="flex-1 m-2 p-2 rounded-lg border bg-white border-slate-200"
       onPress={() => navigation.navigate('ProductDetail', { item })}>
       <View className="m-[-9px]">
         <Image

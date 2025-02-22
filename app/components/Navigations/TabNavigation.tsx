@@ -4,17 +4,22 @@ import { useSelector } from 'react-redux';
 import { useSegments } from 'expo-router';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Profile, Cart, AddProduct } from '@/app/screens';
+import { AddProduct } from '@/app/screens';
 import colors from '@/app/constants/colors';
 import HomeScreenStackNav from './StackNavigation/HomeStack';
 import ExploreStackNav from './StackNavigation/ExploreStack';
 import ProfileStackNav from './StackNavigation/ProfileStack';
+import PaymentStackNav from './StackNavigation/PaymentStack';
 
 const Tab = createBottomTabNavigator();
 
 const TabNavigation = () => {
   const segments: string[] = useSegments();
-  const screensWithHiddenTabs = ['ProductDetail', 'CategoryProduct'];
+  const screensWithHiddenTabs = [
+    'ProductDetail',
+    'CategoryProduct',
+    'Checkout',
+  ];
   const badgeCount = useSelector((state: any) => state.cart.badgeCount);
 
   const hide = screensWithHiddenTabs.some((screen) =>
@@ -80,8 +85,8 @@ const TabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
-        component={Cart}
+        name="PaymentNav"
+        component={PaymentStackNav}
         options={{
           tabBarBadge: badgeCount > 0 ? badgeCount : null,
           tabBarActiveTintColor: colors.primary,

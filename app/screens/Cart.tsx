@@ -1,27 +1,29 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import useStatusBar from '../hooks/useStatusBar';
 import colors from '../constants/colors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import currencyFormat from '../utils/currencyFormat';
 import NotFound from '../components/NotFound';
 import { updateCartItems } from '../reducers/cartSlice';
-import { useDispatch } from 'react-redux';
 
 const AddCart = () => {
+  const navigation = useNavigation<any>();
   useStatusBar('dark-content', colors.white);
   const [cartItems, setCartItems] = useState([
     {
       id: 1,
-      name: 'Minimal Desk Lamp',
+      title: 'Minimal Desk Lamp',
       price: 89.99,
       quantity: 1,
       image: '/api/placeholder/100/100',
     },
     {
       id: 2,
-      name: 'Modern Coffee Table',
+      title: 'Modern Coffee Table',
       price: 299.99,
       quantity: 2,
       image: '/api/placeholder/100/100',
@@ -77,6 +79,10 @@ const AddCart = () => {
     });
   }, [getData]);
 
+  const handleCheckout = () => {
+    navigation.navigate('Checkout');
+  };
+
   const renderCart = (
     <ScrollView className="flex flex-col h-screen bg-gray-50">
       <View className="px-6 py-4 bg-white shadow-sm">
@@ -93,20 +99,20 @@ const AddCart = () => {
             className="flex flex-row items-center py-4 space-x-10 border-b border-gray-200">
             <Image
               source={{ uri: item?.image }}
-              alt={item?.name}
+              alt={item?.title}
               className="w-20 h-20 rounded-lg object-cover bg-gray-100"
             />
 
             <View>
               <Text className="text-xs font-medium text-gray-900 truncate">
-                {item?.name}
+                {item?.title}
               </Text>
               <Text className="text-sm text-gray-500">
                 Rp {currencyFormat(item?.price)}
               </Text>
             </View>
 
-            <View className="flex flex-col items-center px-10 space-x-1 space-y-1">
+            <View className="flex flex-col items-center px-4 space-x-1 space-y-1">
               <TouchableOpacity
                 aria-label="Decrease quantity"
                 onPress={() => updateQuantity(index, -1)}
@@ -143,8 +149,10 @@ const AddCart = () => {
             Rp {currencyFormat(total.toFixed(0))}
           </Text>
         </View>
-        <TouchableOpacity className="w-full py-3 fixed bg-indigo-500 text-white rounded-lg">
-          <Text className="text-white text-center font-semibold">Bayar</Text>
+        <TouchableOpacity
+          onPress={handleCheckout}
+          className="w-full py-3 fixed bg-indigo-500 text-white rounded-lg">
+          <Text className="text-white text-center font-semibold">Checkout</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

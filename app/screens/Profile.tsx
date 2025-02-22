@@ -30,7 +30,7 @@ const Profile = () => {
 
   return (
     <View className="flex-1 bottom-28 justify-center items-center bg-white p-5">
-      <View className="w-full flex flex-row items-center border-[1px] border-slate-200 rounded-xl p-4 mb-4">
+      <View className="w-full flex flex-row items-center border border-slate-200 rounded-xl p-4 mb-4">
         <Image
           alt="profile"
           className="w-[68px] h-[68px] rounded-full"
@@ -45,23 +45,23 @@ const Profile = () => {
       </View>
       <TouchableOpacity
         onPress={() => handleTapMenu('MyProduct')}
-        className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border-[1px] border-slate-200 py-2 px-3">
+        className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border border-slate-200 py-2 px-3">
         <Text className="text-center text-gray-600">Produk Saya</Text>
         <Ionicons name="briefcase-outline" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => handleTapMenu('ExploreNav')}
-        className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border-[1px] border-slate-200 py-2 px-3">
+        className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border border-slate-200 py-2 px-3">
         <Text className="text-center text-gray-600">Jelajahi Commuplace</Text>
         <Ionicons name="globe-outline" size={24} color="gray" />
       </TouchableOpacity>
-      <TouchableOpacity className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border-[1px] border-slate-200 py-2 px-3">
+      <TouchableOpacity className="w-full flex flex-row mb-2 items-center rounded-lg justify-between border border-slate-200 py-2 px-3">
         <Text className="text-center text-gray-600">Tentang Kami</Text>
         <Ionicons name="information-circle-outline" size={24} color="gray" />
       </TouchableOpacity>
       <TouchableOpacity
         onPress={handleLogout}
-        className="absolute bottom-10 w-full flex flex-row mb-4 items-center rounded-lg justify-between border-[1px] border-red-300 py-2 px-3">
+        className="absolute bottom-10 w-full flex flex-row mb-4 items-center rounded-lg justify-between border border-red-300 py-2 px-3">
         <Text className="text-center text-red-600">Keluar</Text>
         <Ionicons name="log-out-outline" size={24} color="red" />
       </TouchableOpacity>
