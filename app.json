@@ -37,6 +37,7 @@
       ]
     ],
     "experiments": {
+      "reactCompiler": true,
       "typedRoutes": true
     },
     "extra": {

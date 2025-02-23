@@ -12,8 +12,9 @@ import firebaseConfig from '@/firebaseConfig';
 import NotFound from '@/app/components/NotFound';
 import Loading from '@/app/components/Loading';
 import { useUser } from '@clerk/clerk-expo';
-import { Alert, ScrollView } from 'react-native';
+import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import ScrollEvent from '@/app/components/ScrollEvent';
 
 const MyProduct = () => {
   const db = getFirestore(firebaseConfig);
@@ -26,18 +27,20 @@ const MyProduct = () => {
   }, [user]);
 
   const getMyProduct = async () => {
-    setProducts([]);
     setLoading(true);
-    const q = query(
-      collection(db, 'Product'),
-      where('userEmail', '==', user?.primaryEmailAddress?.emailAddress),
-    );
-    const snapshot = await getDocs(q);
-    setLoading(false);
-    snapshot.forEach((doc) => {
-      setProducts((productList) => [...productList, doc.data()]);
+    try {
+      const q = query(
+        collection(db, 'Product'),
+        where('userEmail', '==', user?.primaryEmailAddress?.emailAddress),
+      );
+      const snapshot = await getDocs(q);
+      const productData = snapshot.docs.map((doc) => doc.data());
+      setProducts(productData);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    } finally {
       setLoading(false);
-    });
+    }
   };
 
   const handleDeleteData = (title: string) => {
@@ -48,7 +51,7 @@ const MyProduct = () => {
       },
       {
         text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
+        onPress: () => '',
         style: 'cancel',
       },
     ]);
@@ -72,13 +75,13 @@ const MyProduct = () => {
       {loading ?
         <Loading />
       : products.length > 0 ?
-        <ScrollView>
+        <ScrollEvent>
           <ListItems
             handleOnTap={handleDeleteData}
             data={products}
             heading={`Manajemen Produk 📦`}
           />
-        </ScrollView>
+        </ScrollEvent>
       : <NotFound />}
     </>
   );

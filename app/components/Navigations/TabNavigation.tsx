@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Text } from 'react-native';
 import { useSelector } from 'react-redux';
 import { useSegments } from 'expo-router';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { AddProduct } from '@/app/screens';
 import colors from '@/app/constants/colors';
-import HomeScreenStackNav from './StackNavigation/HomeStack';
-import ExploreStackNav from './StackNavigation/ExploreStack';
-import ProfileStackNav from './StackNavigation/ProfileStack';
-import PaymentStackNav from './StackNavigation/PaymentStack';
+import Loading from '../Loading';
+
+const AddProduct = lazy(() => import('@/app/screens/Product/AddProduct'));
+const HomeStackNav = lazy(
+  () => import('@/app/components/Navigations/StackNavigation/HomeStack'),
+);
+const ExploreStackNav = lazy(
+  () => import('@/app/components/Navigations/StackNavigation/ExploreStack'),
+);
+const ProfileStackNav = lazy(
+  () => import('@/app/components/Navigations/StackNavigation/ProfileStack'),
+);
+const PaymentStackNav = lazy(
+  () => import('@/app/components/Navigations/StackNavigation/PaymentStack'),
+);
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +36,7 @@ const TabNavigation = () => {
     segments.includes(screen),
   );
 
-  return (
+  const renderScreens = (
     <Tab.Navigator
       initialRouteName="HomeNav"
       screenOptions={{
@@ -38,7 +48,7 @@ const TabNavigation = () => {
       }}>
       <Tab.Screen
         name="HomeNav"
-        component={HomeScreenStackNav}
+        component={HomeStackNav}
         options={{
           tabBarActiveTintColor: colors.primary,
           tabBarLabel: ({ color }) => (
@@ -161,6 +171,8 @@ const TabNavigation = () => {
       />
     </Tab.Navigator>
   );
+
+  return <Suspense fallback={<Loading />}>{renderScreens}</Suspense>;
 };
 
 export default TabNavigation;

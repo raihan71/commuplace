@@ -17,12 +17,15 @@
   "dependencies": {
     "@clerk/clerk-expo": "^2.7.7",
     "@expo/vector-icons": "^14.0.2",
+    "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-masked-view/masked-view": "0.3.2",
     "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/stack": "^7.1.1",
     "@reduxjs/toolkit": "^2.5.1",
+    "babel-plugin-react-compiler": "^19.0.0-beta-e552027-20250112",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-21e868a-20250216",
     "expo": "~52.0.31",
     "expo-blur": "~14.0.3",
     "expo-constants": "~17.0.5",
@@ -40,6 +43,7 @@
     "formik": "^2.4.6",
     "nativewind": "^2.0.11",
     "react": "18.3.1",
+    "react-compiler-runtime": "^19.0.0-beta-e552027-20250112",
     "react-dom": "18.3.1",
     "react-native": "0.76.7",
     "react-native-gesture-handler": "~2.20.2",
@@ -50,8 +54,7 @@
     "react-native-webview": "13.12.5",
     "react-redux": "^9.2.0",
     "redux-thunk": "^3.1.0",
-    "yup": "^1.6.1",
-    "@react-native-async-storage/async-storage": "1.23.1"
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

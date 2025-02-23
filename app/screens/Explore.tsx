@@ -9,6 +9,7 @@ import {
 } from 'firebase/firestore';
 import firebaseConfig from '@/firebaseConfig';
 import ListItems from '../components/ListItem';
+import ScrollEvent from '../components/ScrollEvent';
 
 const Explore = () => {
   const [latestItemList, setLatestItemList] = useState<any[]>([]);
@@ -17,7 +18,7 @@ const Explore = () => {
   const getLatestItemList = async () => {
     setLatestItemList([]);
     const querySnapShot = await getDocs(
-      query(collection(db, 'Product'), orderBy('createdAt', 'desc')),
+      query(collection(db, 'Product'), orderBy('cratedAt', 'desc')),
     );
     querySnapShot.forEach((doc) => {
       setLatestItemList((latestItemList) => [...latestItemList, doc.data()]);
@@ -29,9 +30,9 @@ const Explore = () => {
   }, []);
 
   return (
-    <ScrollView className="bg-white flex-1">
+    <ScrollEvent>
       <ListItems data={latestItemList} heading="Jelajahi Produk 🌐" />
-    </ScrollView>
+    </ScrollEvent>
   );
 };
 
