@@ -1,148 +1,110 @@
 import React from 'react';
-import { Easing, Text } from 'react-native';
+import { Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useSelector } from 'react-redux';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useSegments } from 'expo-router';
 import colors from '@/app/constants/colors';
-import Home from '@/app/screens/Home';
 import AddProduct from '@/app/screens/Product/AddProduct';
-import Cart from '@/app/screens/Cart';
-import Profile from '@/app/screens/Profile';
-import Explore from '@/app/screens/Explore';
+import HomeScreenStackNav from './StackNavigation/HomeStack';
+import ExploreStackNav from './StackNavigation/ExploreStack';
+import PaymentStackNav from './StackNavigation/PaymentStack';
+import ProfileStackNav from './StackNavigation/ProfileStack';
 
 const Tab = createBottomTabNavigator();
 
-export default function TabNavigation() {
+const tabConfig = [
+  {
+    name: 'HomeNav',
+    component: HomeScreenStackNav,
+    label: 'Beranda',
+    icon: 'home',
+  },
+  {
+    name: 'ExploreNav',
+    component: ExploreStackNav,
+    label: 'Jelajah',
+    icon: 'globe',
+  },
+  {
+    name: 'CartNav',
+    component: PaymentStackNav,
+    label: 'Keranjang',
+    icon: 'cart',
+    showBadge: true,
+  },
+  {
+    name: 'AddProduct',
+    component: AddProduct,
+    label: 'Upload',
+    icon: 'camera',
+  },
+  {
+    name: 'ProfileNav',
+    component: ProfileStackNav,
+    label: 'Akun Saya',
+    icon: 'person',
+  },
+];
+
+const TabNavigation = () => {
+  const segments: string[] = useSegments();
+  const screensWithHiddenTabs = [
+    'ProductDetail',
+    'CategoryProduct',
+    'Checkout',
+  ];
+  const badgeCount = useSelector((state: any) => state.cart.badgeCount);
+  const hide = screensWithHiddenTabs.some((screen) =>
+    segments.includes(screen),
+  );
+
+  const getTabOptions = (item: (typeof tabConfig)[0]) => ({
+    tabBarActiveTintColor: colors.primary,
+    tabBarBadge: item.showBadge && badgeCount > 0 ? badgeCount : null,
+    tabBarLabel: ({ color }: { color: string }) => (
+      <Text
+        style={{
+          color: color,
+          fontSize: 12,
+          marginLeft: 2,
+        }}>
+        {item.label}
+      </Text>
+    ),
+    tabBarIcon: ({ color, focused }: { color: string; focused: boolean }) => {
+      const iconName = focused ? item.icon : `${item.icon}-outline`;
+      return (
+        <Ionicons
+          style={{ marginLeft: 2 }}
+          name={iconName as keyof typeof Ionicons.glyphMap}
+          size={24}
+          color={color}
+        />
+      );
+    },
+  });
+
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="HomeNav"
       screenOptions={{
-        animation: 'shift',
         headerShown: false,
         tabBarStyle: {
           height: 53,
+          display: hide ? 'none' : 'flex',
         },
       }}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarActiveTintColor: colors.primary,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Home
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'home' : 'home-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Explore"
-        component={Explore}
-        options={{
-          tabBarActiveTintColor: colors.primary,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Explore
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'globe' : 'globe-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Cart"
-        component={Cart}
-        options={{
-          tabBarBadge: 3,
-          tabBarActiveTintColor: colors.primary,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Cart
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'cart' : 'cart-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="AddProduct"
-        component={AddProduct}
-        options={{
-          tabBarActiveTintColor: colors.primary,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Product
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'camera' : 'camera-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarActiveTintColor: colors.primary,
-          tabBarLabel: ({ color }) => (
-            <Text
-              style={{
-                color: color,
-                fontSize: 12,
-                marginLeft: 2,
-              }}>
-              Profile
-            </Text>
-          ),
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? 'person' : 'person-outline'}
-              size={24}
-              color={color}
-            />
-          ),
-        }}
-      />
+      {tabConfig.map((item) => (
+        <Tab.Screen
+          key={item.name}
+          name={item.name}
+          component={item.component}
+          options={getTabOptions(item)}
+        />
+      ))}
     </Tab.Navigator>
   );
-}
+};
+
+export default TabNavigation;

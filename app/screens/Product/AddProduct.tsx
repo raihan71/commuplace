@@ -22,6 +22,7 @@ import firebaseConfig from '@/firebaseConfig';
 import { useUser } from '@clerk/clerk-expo';
 import colors from '@/app/constants/colors';
 import useStatusBar from '@/app/hooks/useStatusBar';
+import images from '@/app/constants/images';
 
 const styles = StyleSheet.create({
   input: {
@@ -97,6 +98,7 @@ const AddProduct = () => {
             image: url,
             userName: user?.fullName,
             userImage: user?.imageUrl,
+            userEmail: user?.primaryEmailAddress?.emailAddress,
             createdAt: new Date(),
           })
             .then((docRef) => {
@@ -159,7 +161,7 @@ const AddProduct = () => {
                       />
                     : <Image
                         style={{ width: 100, height: 100, borderRadius: 15 }}
-                        source={require('../../../assets/images/placeholder.jpg')}
+                        source={images.image.placeholder}
                       />
                     }
                   </TouchableOpacity>

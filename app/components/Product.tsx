@@ -2,10 +2,13 @@ import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
 import currencyFormat from '../utils/currencyFormat';
+import { useNavigation } from '@react-navigation/native';
 
 const Product = ({ item }: any) => {
+  const navigation = useNavigation<any>();
   return (
     <TouchableOpacity
+      onPress={() => navigation.navigate('ProductDetail', { item })}
       className="flex-1 m-2 p-2 rounded-lg 
   border-[1px] bg-white border-slate-200">
       <View className="m-[-9px]">

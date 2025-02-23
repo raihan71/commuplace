@@ -1,31 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, Image, Text } from 'react-native';
+import React from 'react';
+import { View, FlatList, Text } from 'react-native';
 import ProductMini from '../ProductMini';
-import timerCountDown from '@/app/utils/countDownTimer';
 
-const Collection = ({ title, data }: any) => {
-  const [timeLeft, setTimeLeft] = useState(3600);
-  useEffect(() => {
-    if (timeLeft === 0) return;
-
-    const timer = setInterval(() => {
-      setTimeLeft((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [timeLeft]);
-
+const Collection = ({ title, flashSale, header, background, data }: any) => {
   return (
-    <View className="mt-3.5 pb-3.5 bg-yellow-100 rounded-lg">
+    <View className="mt-3 pb-3.5" style={{ backgroundColor: background }}>
       <View className="flex flex-row items-center justify-between px-4 py-3">
-        <View className="flex flex-row items-center">
-          <Image
-            source={require('../../../assets/images/Flashsale-Blue-Mobile.png')}
-          />
-          <Text className="font-bold text-lg ml-2"></Text>
-          <Text className="font-bold text-lg">{timerCountDown(timeLeft)}</Text>
-        </View>
-        <Text className="text-xs">Semua</Text>
+        {header}
+        <Text className="text-xs">{title}</Text>
       </View>
       <FlatList
         contentContainerStyle={{ paddingHorizontal: 18.5 }}
@@ -39,7 +21,7 @@ const Collection = ({ title, data }: any) => {
             style={{
               marginRight: index === data.length - 1 ? 0 : 15,
             }}>
-            <ProductMini item={item} />
+            <ProductMini isFlashSale={flashSale} item={item} />
           </View>
         )}
       />
