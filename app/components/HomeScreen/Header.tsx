@@ -8,7 +8,7 @@ const Header = () => {
   const { user } = useUser();
 
   return (
-    <View className="px-5 pt-1.5">
+    <View className="py-2 px-5 pt-1.5">
       <View className="flex flex-row items-center gap-2.5 space-y-2">
         <Image
           source={{ uri: user?.imageUrl }}

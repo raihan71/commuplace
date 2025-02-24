@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Platform, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSelector } from 'react-redux';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -90,10 +90,10 @@ const TabNavigation = () => {
   return (
     <Tab.Navigator
       initialRouteName="HomeNav"
+      safeAreaInsets={{ bottom: Platform.OS === 'ios' ? 0 : 10 }}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          height: 53,
           display: hide ? 'none' : 'flex',
         },
       }}>
