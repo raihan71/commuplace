@@ -5,6 +5,7 @@ import * as Linking from 'expo-linking';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import useWarmUpBrowser from '../hooks/useWarmupBrowser';
 import images from '../constants/images';
+import Button from '../components/Button';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -39,12 +40,8 @@ const Login = ({ strategy }: any) => {
           Community Marketplace
         </Text>
         <Text className="text-center mt-2">Meet people to buy or sell 🎉</Text>
-        <View className="px-4">
-          <TouchableOpacity
-            onPress={handleLogin}
-            className="bg-indigo-500 p-4 mt-4 rounded-lg">
-            <Text className="text-white text-center">Sign in with Google</Text>
-          </TouchableOpacity>
+        <View className="mx-4">
+          <Button handlePress={handleLogin} text="Login with Google" />
         </View>
       </View>
     </View>

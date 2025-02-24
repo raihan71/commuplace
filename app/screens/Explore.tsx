@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
 import {
   getDocs,
   query,
@@ -8,7 +7,9 @@ import {
   getFirestore,
 } from 'firebase/firestore';
 import firebaseConfig from '@/firebaseConfig';
-import ListItems from '@/app/components/HomeScreen/ListProduct';
+import ListItems from '@/app/components/ListItems/ListProduct';
+import colors from '@/app/constants/colors';
+import ScrollEvent from '@/app/components/ScrollEvent';
 
 const Explore = () => {
   const [latestItemList, setLatestItemList] = useState<any[]>([]);
@@ -29,9 +30,9 @@ const Explore = () => {
   }, []);
 
   return (
-    <ScrollView className="bg-white flex-1">
+    <ScrollEvent style={{ flex: 1, backgroundColor: colors.white }}>
       <ListItems data={latestItemList} title="Jelajahi Produk 🌐" />
-    </ScrollView>
+    </ScrollEvent>
   );
 };
 

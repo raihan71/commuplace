@@ -5,30 +5,32 @@ import { useSelector } from 'react-redux';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useSegments } from 'expo-router';
 import colors from '@/app/constants/colors';
-import AddProduct from '@/app/screens/Product/AddProduct';
-import HomeScreenStackNav from './StackNavigation/HomeStack';
-import ExploreStackNav from './StackNavigation/ExploreStack';
-import PaymentStackNav from './StackNavigation/PaymentStack';
-import ProfileStackNav from './StackNavigation/ProfileStack';
+import { AddProduct } from '@/app/screens';
+import {
+  HomeStack,
+  ExploreStack,
+  PaymentStack,
+  ProfileStack,
+} from '@/app/components/Navigations/StackNavigation';
 
 const Tab = createBottomTabNavigator();
 
 const tabConfig = [
   {
     name: 'HomeNav',
-    component: HomeScreenStackNav,
+    component: HomeStack,
     label: 'Beranda',
     icon: 'home',
   },
   {
     name: 'ExploreNav',
-    component: ExploreStackNav,
+    component: ExploreStack,
     label: 'Jelajah',
     icon: 'globe',
   },
   {
     name: 'CartNav',
-    component: PaymentStackNav,
+    component: PaymentStack,
     label: 'Keranjang',
     icon: 'cart',
     showBadge: true,
@@ -41,7 +43,7 @@ const tabConfig = [
   },
   {
     name: 'ProfileNav',
-    component: ProfileStackNav,
+    component: ProfileStack,
     label: 'Akun Saya',
     icon: 'person',
   },

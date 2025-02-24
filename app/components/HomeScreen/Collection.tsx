@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, FlatList, Text } from 'react-native';
-import ProductMini from '../ProductMini';
+import ProductMini from '@/app/components/Products/ProductMini';
 
 const Collection = ({ title, flashSale, header, background, data }: any) => {
   return (

@@ -5,7 +5,7 @@ import colors from '@/app/constants/colors';
 const Loading = () => {
   return (
     <ActivityIndicator
-      className="flex-1 items-center mb-4"
+      className="flex-1 items-center mb-4 bg-white"
       size="large"
       color={colors.primary}
     />

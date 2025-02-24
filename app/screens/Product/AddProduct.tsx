@@ -23,6 +23,7 @@ import { useUser } from '@clerk/clerk-expo';
 import colors from '@/app/constants/colors';
 import useStatusBar from '@/app/hooks/useStatusBar';
 import images from '@/app/constants/images';
+import FormProduct from '@/app/components/Form/FormProduct';
 
 const styles = StyleSheet.create({
   input: {
@@ -130,110 +131,14 @@ const AddProduct = () => {
     <SafeAreaView>
       <KeyboardAvoidingView>
         <ScrollView>
-          <View className="px-6 py-3 bg-white">
-            <Text className="font-bold text-2xl">Add New Product</Text>
-            <Text className="text-base text-gray-500 mb-3">
-              Create New Product & Start Selling
-            </Text>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={(values, { resetForm }) =>
-                handleSaveProduct(values, resetForm)
-              }
-              validationSchema={validationSchema}>
-              {({
-                handleChange,
-                handleBlur,
-                handleSubmit,
-                values,
-                setFieldValue,
-                errors,
-                touched,
-              }: any) => (
-                <View>
-                  <TouchableOpacity
-                    className="mb-1"
-                    onPress={handleChangeImage}>
-                    {image ?
-                      <Image
-                        source={{ uri: image }}
-                        style={{ width: 100, height: 100 }}
-                      />
-                    : <Image
-                        style={{ width: 100, height: 100, borderRadius: 15 }}
-                        source={images.image.placeholder}
-                      />
-                    }
-                  </TouchableOpacity>
-                  <TextInput
-                    onChangeText={handleChange('title')}
-                    onBlur={handleBlur('title')}
-                    value={values?.title}
-                    style={styles.input}
-                    placeholder="Title"
-                  />
-                  {errors.title && touched.title ?
-                    <Text className="text-red-500">{errors.title}</Text>
-                  : ''}
-                  <TextInput
-                    className="h-24"
-                    style={styles.input}
-                    placeholder="Description"
-                    onChangeText={handleChange('description')}
-                    onBlur={handleBlur('description')}
-                    value={values?.description}
-                    numberOfLines={10}
-                    multiline={true}
-                  />
-                  {errors.description && touched.description ?
-                    <Text className="text-red-500">{errors.description}</Text>
-                  : ''}
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Price"
-                    keyboardType="number-pad"
-                    onChangeText={handleChange('price')}
-                    onBlur={handleBlur('price')}
-                    value={values?.price}
-                  />
-                  {errors.price && touched.price ?
-                    <Text className="text-red-500">{errors.price}</Text>
-                  : ''}
-                  <View className="border border-gray-700 mt-3 rounded-lg">
-                    <Picker
-                      selectedValue={values?.category}
-                      onValueChange={(val: string) =>
-                        setFieldValue('category', val)
-                      }
-                      mode="dropdown">
-                      <Picker.Item label="Choose category" value="" />
-                      {categoryList?.map((category, index) => (
-                        <Picker.Item
-                          key={index}
-                          label={category.name}
-                          value={category.name}
-                        />
-                      ))}
-                    </Picker>
-                  </View>
-                  {errors.category && touched.category ?
-                    <Text className="text-red-500">{errors.category}</Text>
-                  : ''}
-                  <TouchableOpacity
-                    disabled={loading}
-                    onPress={handleSubmit}
-                    className="bg-indigo-500 p-3 rounded-md mt-5">
-                    {loading ?
-                      <ActivityIndicator color={colors.white} />
-                    : <Text className="text-white text-center font-semibold">
-                        Simpan
-                      </Text>
-                    }
-                  </TouchableOpacity>
-                </View>
-              )}
-            </Formik>
-          </View>
+          <FormProduct
+            initialValues={initialValues}
+            handleSaveProduct={handleSaveProduct}
+            handleChangeImage={handleChangeImage}
+            image={image}
+            categoryList={categoryList}
+            loading={loading}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

@@ -3,16 +3,11 @@ import { useDispatch } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Image,
-  Alert,
-} from 'react-native';
-import currencyFormat from '../utils/currencyFormat';
-import { updateCartItems } from '../reducers/cartSlice';
+import { View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import currencyFormat from '@/app/utils/currencyFormat';
+import { updateCartItems } from '@/app/reducers/cartSlice';
+import colors from '@/app/constants/colors';
+import ScrollEvent from '@/app/components/ScrollEvent';
 
 const Payment = () => {
   const navigation = useNavigation<any>();
@@ -70,7 +65,7 @@ const Payment = () => {
   );
 
   return (
-    <ScrollView className="flex-1">
+    <ScrollEvent style={{ backgroundColor: colors.slate, flex: 1 }}>
       <View className="p-3.5">
         <View className="flex flex-col mb-6 bg-white p-4 rounded-lg">
           <Text className="font-semibold text-gray-800 mb-4">
@@ -148,7 +143,7 @@ const Payment = () => {
           </TouchableOpacity>
         </View>
       </View>
-    </ScrollView>
+    </ScrollEvent>
   );
 };
 

@@ -8,7 +8,7 @@ import {
   getDocs,
   getFirestore,
 } from 'firebase/firestore';
-import ListItems from '@/app/components/HomeScreen/ListProduct';
+import ListItems from '@/app/components/ListItems/ListProduct';
 import colors from '@/app/constants/colors';
 import useStatusBar from '@/app/hooks/useStatusBar';
 import firebaseConfig from '@/firebaseConfig';

@@ -1,8 +1,8 @@
 import React from 'react';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { TouchableOpacity, Text, View, Image } from 'react-native';
-import currencyFormat from '../utils/currencyFormat';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import currencyFormat from '@/app/utils/currencyFormat';
 
 const Product = ({ item }: any) => {
   const navigation = useNavigation<any>();

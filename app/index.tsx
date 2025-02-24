@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Provider } from 'react-redux';
 import {
   ClerkProvider,
@@ -7,8 +7,12 @@ import {
   SignedOut,
 } from '@clerk/clerk-expo';
 import store from './store/store';
-import Login from './screens/Login';
-import TabNavigation from './components/Navigations/TabNavigation';
+import Loading from './components/Loading';
+
+const TabNavigation = lazy(
+  () => import('./components/Navigations/TabNavigation'),
+);
+const Login = lazy(() => import('./screens/Login'));
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -20,12 +24,14 @@ const App = () => (
   <Provider store={store}>
     <ClerkProvider publishableKey={publishableKey}>
       <ClerkLoaded>
-        <SignedIn>
-          <TabNavigation />
-        </SignedIn>
-        <SignedOut>
-          <Login strategy="oauth_google" />
-        </SignedOut>
+        <Suspense fallback={<Loading />}>
+          <SignedIn>
+            <TabNavigation />
+          </SignedIn>
+          <SignedOut>
+            <Login strategy="oauth_google" />
+          </SignedOut>
+        </Suspense>
       </ClerkLoaded>
     </ClerkProvider>
   </Provider>

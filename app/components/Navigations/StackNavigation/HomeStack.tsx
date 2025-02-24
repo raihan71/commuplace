@@ -1,9 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import colors from '@/app/constants/colors';
-import Home from '@/app/screens/Home';
-import ListCategoryProduct from '@/app/screens/Product/ListCategoryProduct';
-import DetailProduct from '@/app/screens/Product/DetailProduct';
+import { CategoryProduct, ProductDetail, Home } from '@/app/screens';
 
 const Stack = createStackNavigator();
 
@@ -31,7 +29,7 @@ const HomeScreenStackNav = () => {
       />
       <Stack.Screen
         name="CategoryProduct"
-        component={ListCategoryProduct}
+        component={CategoryProduct}
         options={({ route }: any) => ({
           animation: 'slide_from_right',
           title: route.params.category,
@@ -43,7 +41,7 @@ const HomeScreenStackNav = () => {
       />
       <Stack.Screen
         name="ProductDetail"
-        component={DetailProduct}
+        component={ProductDetail}
         options={() => ({
           animation: 'slide_from_right',
           title: '',
