@@ -15,7 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon/foreground.png",
-        "backgroundColor": "#6382ef"
+        "backgroundColor": "#fff"
       },
       "package": "com.commuplace.martketplacecommunity"
     },
@@ -29,9 +29,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash.png",
-          "resizeMode": "cover",
-          "backgroundColor": "#6382ef"
+          "image": "./assets/images/adaptive-icon/foreground.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#fff",
+          "imageWidth": 200
         }
       ]
     ],

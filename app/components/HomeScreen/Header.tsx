@@ -8,7 +8,7 @@ const Header = () => {
   const { user } = useUser();
 
   return (
-    <View className="py-2 px-5 pt-1.5">
+    <View className="px-5 pt-1.5">
       <View className="flex flex-row items-center gap-2.5 space-y-2">
         <Image
           source={{ uri: user?.imageUrl }}
@@ -21,7 +21,7 @@ const Header = () => {
       </View>
 
       <View
-        className="px-5 flex flex-row 
+        className="py-2 px-5 flex flex-row 
       items-center bg-indigo-50 mt-4 rounded-full border-[1px] border-indigo-200">
         <Ionicons name="search" size={24} color={colors.primary} />
         <TextInput
